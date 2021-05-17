@@ -13,18 +13,22 @@ function get_random(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
-
+function preload() {
+	cat1 = loadImage('../images/cat1.png');
+}
   
 function setup() {
 	createCanvas(innerWidth, innerHeight);
 	background(blue_sky.r, blue_sky.g, blue_sky.b);
+
+	
 	
 	for (i = 0; i < snows; i += 1) {
 		xs[i] = get_random(0, width);
 		ys[i] = get_random(0, height);
 	}
 
-	cat1 = loadImage('images/cat1.png');
+	
 
 }
 
@@ -44,6 +48,6 @@ function draw() {
 	}
 	fill(255,255,255);
 
-	image(cat1, width / 5 * 4, height / 5 * 4);
+	image(cat1, 0, 0);
 }
 
