@@ -13,13 +13,14 @@ function get_random(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
-function preload() {
-	cat1 = loadImage('../images/cat1.png');
-}
+// function preload() {
+// 	cat1 = loadImage('../images/cat1.png');
+// }
   
 function setup() {
 	createCanvas(innerWidth, innerHeight);
 	background(blue_sky.r, blue_sky.g, blue_sky.b);
+	cat1 = loadImage('../images/cat1.png');
 
 	
 	
