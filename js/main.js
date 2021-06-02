@@ -17,7 +17,7 @@ function setup() {
 	background(blue_sky.r, blue_sky.g, blue_sky.b);
 
 	pg = createGraphics(innerWidth, innerHeight);
-  	textSize(width / 3);
+  	textSize(20);
   	textAlign(CENTER, CENTER);
 	
 
@@ -28,13 +28,9 @@ function draw() {
 	stroke(0);
 	strokeWeight(2);
 
-	let time = millis();
-  	rotateX(time / 1000);
-  	rotateZ(time / 1234);
-  	text('Click to start painting with bouncing ball!', 0, 0);
 
 	fill(255);
-	text("Click to start painting with bouncing ball!", 10, 30);
+	text("Click to start painting with bouncing ball!", width / 2, 30);
 
 	fill(255);
 	ellipse(startx,starty,10, 10);
@@ -52,8 +48,9 @@ function draw() {
 	t += 0.1;
 
 	pg.translate(0,0);
-  	pg.stroke(255);
+  	pg.stroke(blue_sky.r, blue_sky.g, blue_sky.b);
 	pg.strokeWeight(4);
+	//pg.noFill();
   	pg.point(startx, starty);
 
 	image(pg,0,0);
