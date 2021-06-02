@@ -3,52 +3,58 @@ const blue_sky = {
     g: 229, 
     b: 250
 };
-let xs = [];
-let ys = [];
-let snows = 40;
-let d = 10;
-let cat1;
 
-function get_random(min, max) {
-	return Math.random() * (max - min) + min;
-}
+let startx = 30, starty = 40;
+let dx = 0, dy = 0;
+let t = 0;
+let vx = 0.2, vy = 0;
+let a = 0.01;
 
-// function preload() {
-// 	cat1 = loadImage('../images/cat1.png');
-// }
-  
+
+
 function setup() {
 	createCanvas(innerWidth, innerHeight);
 	background(blue_sky.r, blue_sky.g, blue_sky.b);
-	cat1 = loadImage('../images/cat1.png');
 
-	
-	
-	for (i = 0; i < snows; i += 1) {
-		xs[i] = get_random(0, width);
-		ys[i] = get_random(0, height);
-	}
-
+	pg = createGraphics(innerWidth, innerHeight);
+  	textSize(width / 3);
+  	textAlign(CENTER, CENTER);
 	
 
 }
 
 function draw() {
+	background(0, 0, 0);
+	stroke(0);
+	strokeWeight(2);
 
-	/* snow*/
-	background(blue_sky.r, blue_sky.g, blue_sky.b);
-	for (i = 0; i < snows; i += 1) {
-		if (ys[i] > height) {
-			ys[i] = 0;
-		} else {
-			ys[i] += 3;
-		}
-		strokeWeight(0);
-		ellipse(xs[i],ys[i],d);
+	let time = millis();
+  	rotateX(time / 1000);
+  	rotateZ(time / 1234);
+  	text('Click to start painting with bouncing ball!', 0, 0);
 
-	}
-	fill(255,255,255);
+	fill(255);
+	text("Click to start painting with bouncing ball!", 10, 30);
 
-	image(cat1, 0, 0);
+	fill(255);
+	ellipse(startx,starty,10, 10);
+
+	
+
+	startx += vx * t;
+	vy = vy + a * t;
+	starty += vy * t + 1/2 * a * t * t;
+
+	if (starty > innerHeight) {
+		vy = - vy;
+	} 
+
+	t += 0.1;
+
+	pg.translate(0,0);
+  	pg.stroke(255);
+	pg.strokeWeight(4);
+  	pg.point(startx, starty);
+
+	image(pg,0,0);
 }
-
