@@ -1,26 +1,48 @@
-const blue_sky = {
-    r: 93, 
-    g: 229, 
-    b: 250
-};
+/* by Ursula Guo*/
 
-let startx = 30, starty = 40;
-let dx = 0, dy = 0;
+
+/*This program simulates free falling balls with initial horizontal
+velocity, symbolizing many lives of highs and lows*/
+
+/*For ideal visuals, please make more than 10 random clicks on the 
+canvas*/
+
+
 let t = 0;
 let vx = 0.2, vy = 0;
-let a = 0.01;
+let a = 0.012;
+let balls_x;
+let balls_y;
+let start_x;
+let start_y;
+let balls_vx;
+let balls_vy;
+let time;
+let points;
+let turn = 0;
+let r;
+let b;
 
 
 
 function setup() {
 	createCanvas(innerWidth, innerHeight);
-	background(blue_sky.r, blue_sky.g, blue_sky.b);
+	background(0,0,0);
+
+	points = [];
 
 	pg = createGraphics(innerWidth, innerHeight);
   	textSize(20);
   	textAlign(CENTER, CENTER);
-	
 
+	balls_x = [];
+	balls_y = [];
+	start_x = [];
+	start_y = [];
+	balls_vx = [];
+	balls_vy = [];
+	time = [];
+	
 }
 
 function draw() {
@@ -29,29 +51,53 @@ function draw() {
 	strokeWeight(2);
 
 
-	fill(255);
-	text("Click to start painting with bouncing ball!", width / 2, 30);
-
-	fill(255);
-	ellipse(startx,starty,10, 10);
-
 	
 
-	startx += vx * t;
-	vy = vy + a * t;
-	starty += vy * t + 1/2 * a * t * t;
+	if (balls_x.length == 0) {
+		fill(178,34,34);
+		text("Click to start painting with bouncing balls!", width / 2 , height / 2 - 60);
+		fill(178,34,34);
+		text("Art Name:", width / 2, height / 2);
+		fill(255,0,0);
+		text("Bloody bouncing lives", width / 2, height / 2 + 30);
+	}
+	
+	for (i = 0; i < balls_x.length; i++) {
+		fill(255);
+		ellipse(balls_x[i],balls_y[i],10, 10);
+		balls_x[i] += balls_vx[i] * time[i]; //x
+		balls_vy[i] += a * time[i];
+		balls_y[i] += balls_vy[i] * time[i] + 1/2 * a * time[i] * time[i];
 
-	if (starty > innerHeight) {
-		vy = - vy;
-	} 
+		if (balls_y[i] > innerHeight) {
+			balls_vy[i] = - balls_vy[i];
+		}
 
-	t += 0.1;
+		time[i] += 0.01;
 
-	pg.translate(0,0);
-  	pg.stroke(blue_sky.r, blue_sky.g, blue_sky.b);
-	pg.strokeWeight(4);
-	//pg.noFill();
-  	pg.point(startx, starty);
+		r = map(start_x[i], 0, width, 0, 255);
+		b = map(start_y[i], 0, width, 0, 255);
 
-	image(pg,0,0);
+		pg.stroke(r, b, b);
+		pg.strokeWeight(4);
+  		pg.point(balls_x[i], balls_y[i]);
+		image(pg,0,0);
+	}
+  	
+}
+
+
+function mousePressed() {
+	balls_x.push(mouseX);
+	balls_y.push(mouseY);
+	start_x.push(mouseX);
+	start_y.push(mouseY);
+	if (turn % 2 != 0) {
+		balls_vx.push(0.2);
+	} else {
+		balls_vx.push(- 0.2);
+	}
+	turn += 1;
+	balls_vy.push(0);
+	time.push(0);
 }
