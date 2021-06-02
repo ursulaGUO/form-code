@@ -58,7 +58,19 @@ function draw() {
 		text("Click to start painting with bouncing balls!", width / 2 , height / 2 - 60);
 		fill(178,34,34);
 		text("Art Name:", width / 2, height / 2);
+		
+
+		fill(0,0,0);
+		stroke(52,96,96);
+		text("Bloody bouncing lives", width / 2 + 18, height / 2 + 48);
+		fill(0,0,0);
+		stroke(255,255,255);
+		text("Bloody bouncing lives", width / 2 + 12, height / 2 + 42);
+		fill(0,0,0);
+		stroke(255,102,102);
+		text("Bloody bouncing lives", width / 2 + 6, height / 2 + 36);
 		fill(255,0,0);
+		stroke(0);
 		text("Bloody bouncing lives", width / 2, height / 2 + 30);
 	}
 	
@@ -75,8 +87,8 @@ function draw() {
 
 		time[i] += 0.01;
 
-		r = map(start_x[i], 0, width, 0, 255);
-		b = map(start_y[i], 0, width, 0, 255);
+		r = map(start_x[i], 0, width, 30, 255);
+		b = map(start_y[i], 0, height, 0, 155);
 
 		pg.stroke(r, b, b);
 		pg.strokeWeight(4);
